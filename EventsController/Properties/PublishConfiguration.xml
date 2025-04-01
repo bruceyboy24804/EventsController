@@ -1,0 +1,49 @@
+﻿<Publish>
+  <!--Id must be set in order to update existed mod. it is not required for publishing mod for the first time-->
+  <ModId Value="" />
+  <!--Name of the mod to display to players-->
+  <DisplayName Value="EventsController" />
+  <!--Short description of the mod-->
+  <ShortDescription Value="Lets the user control event parameters so they can fine tune their events" />
+  <!--Long description of the mod. Single line or multi line. Supports minimal markdown subset-->
+  <!--LongDescription Value="Controls Disasters" /-->
+  <LongDescription># Detailed Description
+EventController gives you comprehensive control over the game's disaster and events, allowing you to fine-tune parameters.
+
+## Features
+* **Lightning Control**: Adjust strike frequency, radius, fire probability, intensity, and more
+* **Tornado Management**: Configure occurrence conditions, damage severity, duration, and resulting accidents
+* **Building Disasters**: Set collapse probabilities and building fire parameters
+* **Forest Fires**: Customize start probability, intensity, spread rate, and range
+* **Hail Storms**: Control occurrence, damage, duration, and resulting traffic accidents
+* **Other Events**: Manage robbery probabilities and traffic accident settings
+* **Seasonal Events**: Enable summer fire increase for more forest fires during summer
+    
+## Credits 
+* Yenyang - for letting take over disaster controller</LongDescription>
+  <!--Thumbnail-->
+  <Thumbnail Value="Properties/EventController.png" />
+  <!--Screenshot, can be set multiple times-->
+  <Screenshot Value="Properties/Screenshots/1.jpg" />
+  <Screenshot Value="Properties/Screenshots/2.jpg" />
+  <Screenshot Value="Properties/Screenshots/3.jpg" />
+  <Screenshot Value="Properties/Screenshots/4.jpg" />
+  <Screenshot Value="Properties/Screenshots/5.jpg" />
+  <Screenshot Value="Properties/Screenshots/6.jpg" />
+  <!--Tag, can be set multiple times-->
+  <Tag Value="" />
+  <!--Link to the forum post where the mod can be discussed-->
+  <ForumLink Value="Code Mod" />
+  <!--Version of the mod-->
+  <ModVersion Value="1.0.0" />
+  <!--Recommended version of the base game to use the mod-->
+  <GameVersion Value="1.2.*" />
+  <!--Dependency for the mod, can be set multiple times-->
+  <Dependency Id="" />
+  <!--Change log for new version. Single line or multi line. Supports minimal markdown subset-->
+  <ChangeLog>## Version 1.0.0
+- Initial release</ChangeLog>
+  <!--External link. supported types are discord, github, youtube, twitch, x, paypal, patreon, buymeacoffee, kofi, crowdin, gitlab-->
+  <ExternalLink Type="discord" Url="https://discord.gg/C2Z5aMdv" />
+  <ExternalLink Type="github" Url="https://discord.gg/C2Z5aMdv" />
+</Publish>
