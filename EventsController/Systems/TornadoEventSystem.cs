@@ -12,7 +12,6 @@ namespace EventsController.Systems
     public partial class TornadoEventSystem : GameSystemBase
     {
         private PrefabSystem m_PrefabSystem;
-        private CityConfigurationSystem m_CityConfigurationSystem;
         public void TornadoOccurenceToZero(PrefabID prefabID)
         {
             if (m_PrefabSystem.TryGetPrefab(prefabID, out PrefabBase prefab)
@@ -63,37 +62,21 @@ namespace EventsController.Systems
         {
             base.OnCreate();
             m_PrefabSystem = World.GetOrCreateSystemManaged<PrefabSystem>();
-            m_CityConfigurationSystem = World.GetOrCreateSystemManaged<CityConfigurationSystem>();
         }
         protected override void OnUpdate()
         {
-            if (m_CityConfigurationSystem.naturalDisasters)
-            {
-                HandleTornadoControls(true, EventPrefabs.TornadoPrefabID);
-            }
-            else
-            {
-                HandleTornadoControls(false, EventPrefabs.TornadoPrefabID);
-            }
+            HandleTornadoControls(true, EventPrefabs.TornadoPrefabID);
+            HandleTornadoOccurence(Mod.m_Setting.TornadoOccurenceToggle, EventPrefabs.TornadoPrefabID);
         }
         protected override void OnGameLoadingComplete(Purpose purpose, GameMode mode)
         {
             base.OnGameLoadingComplete(purpose, mode);
-
-            if (m_CityConfigurationSystem.naturalDisasters)
-            {
-                HandleTornadoControls(true, EventPrefabs.TornadoPrefabID);
-                HandleTornadoOccurence(Mod.m_Setting.TornadoOccurenceToggle, EventPrefabs.TornadoPrefabID);
-            }
-            else
-            {
-                HandleTornadoControls(false, EventPrefabs.TornadoPrefabID);
-                HandleTornadoOccurence(false, EventPrefabs.TornadoPrefabID); // Disable tornado occurrence
-            }
+            HandleTornadoControls(true, EventPrefabs.TornadoPrefabID);
+            HandleTornadoOccurence(Mod.m_Setting.TornadoOccurenceToggle, EventPrefabs.TornadoPrefabID);
         }
         private void HandleTornadoOccurence(bool toggle, PrefabID prefabID)
         {
-            if (toggle)
+            if (!toggle)
             {
                 TornadoOccurenceToZero(prefabID);
             }
@@ -109,11 +92,6 @@ namespace EventsController.Systems
                 ControlTornadoes(prefabID);
                 ControlTornadoTrafficAccidents(prefabID);
             }
-            else
-            {
-                TornadoOccurenceToZero(prefabID); // Ensure tornado probabilities are set to zero
-            }
         }   
-        
     }
 }

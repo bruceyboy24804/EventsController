@@ -94,25 +94,25 @@ namespace EventsController.Settings
         //Lighting Strike Fires
         [SettingsUISection(LightningSection, FireGroup)]
         [SettingsUISlider(min = 0f, max = 200f, step = 1f, unit = Unit.kPercentage)]
-        [SettingsUISetter(typeof(Setting), nameof(ControlLightningControls))]
+        [SettingsUISetter(typeof(Setting), nameof(HandleLightningControl))]
         [SettingsUIHideByCondition(typeof(Setting), nameof(LightningStrikeOccurenceToggle), true)]
         public float LightningFireStartProbability {get; set; }
         
         [SettingsUISection(LightningSection, FireGroup)]
         [SettingsUISlider(min = 0f, max = 200f, step = 1f, unit = Unit.kPercentage)]
-        [SettingsUISetter(typeof(Setting), nameof(ControlLightningControls))]
+        [SettingsUISetter(typeof(Setting), nameof(HandleLightningControl))]
         [SettingsUIHideByCondition(typeof(Setting), nameof(LightningStrikeOccurenceToggle), true)]
         public float LightningFireStartIntensity { get; set; }
         
         [SettingsUISection(LightningSection, FireGroup)]
         [SettingsUISlider(min = 0f, max = 200f, step = 1f, unit = Unit.kPercentage)]
-        [SettingsUISetter(typeof(Setting), nameof(ControlLightningControls))]
+        [SettingsUISetter(typeof(Setting), nameof(HandleLightningControl))]
         [SettingsUIHideByCondition(typeof(Setting), nameof(LightningStrikeOccurenceToggle), true)]
         public float LightningFireEscalationRate { get; set; }
         
         [SettingsUISection(LightningSection, FireGroup)]
         [SettingsUISlider(min = 0f, max = 200f, step = 1f, unit = Unit.kPercentage)]
-        [SettingsUISetter(typeof(Setting), nameof(ControlLightningControls))]
+        [SettingsUISetter(typeof(Setting), nameof(HandleLightningControl))]
         [SettingsUIHideByCondition(typeof(Setting), nameof(LightningStrikeOccurenceToggle), true)]
         public float LightningFireSpreadProbability { get; set; }
         
@@ -173,87 +173,96 @@ namespace EventsController.Settings
        [SettingsUISection(BuildingSection, BuildingCollapseGroup)]
        [SettingsUISetter(typeof(Setting), nameof(ToggleBuildingCollapseOccurences))]
        public bool BuildingCollapseOccurenceToggle { get; set; }
+       
+       [SettingsUISection(BuildingSection, BuildingFiresGroup)]
+       [SettingsUISetter(typeof(Setting), nameof(ToggleBuildingFires))]
+       public bool BuildingFireToggle { get; set; }
+       
        [SettingsUISection(BuildingSection, BuildingFiresGroup)]
        [SettingsUISetter(typeof(Setting), nameof(ControlBFandFFControls))]
        [SettingsUISlider(min = 0f, max = 200f, step = 1f, unit = Unit.kPercentage)]
-       public float BuildingFireStartProbability { get; set; }
-       [SettingsUISection(BuildingSection, BuildingFiresGroup)]
-       [SettingsUISetter(typeof(Setting), nameof(ControlBFandFFControls))]
-       [SettingsUISlider(min = 0f, max = 200f, step = 1f, unit = Unit.kPercentage)]
-       [SettingsUIHideByCondition(typeof(Setting), nameof(BuildingFireStartProbability), true)]
+       [SettingsUIHideByCondition(typeof(Setting), nameof(BuildingFireToggle), true)]
        public float BuildingFireStartIntensity { get; set; }
        [SettingsUISection(BuildingSection, BuildingFiresGroup)]
        [SettingsUISetter(typeof(Setting), nameof(ControlBFandFFControls))]
        [SettingsUISlider(min = 0f, max = 200f, step = 1f, unit = Unit.kPercentage)]
-       [SettingsUIHideByCondition(typeof(Setting), nameof(BuildingFireStartProbability), true)]
+       [SettingsUIHideByCondition(typeof(Setting), nameof(BuildingFireToggle), true)]
        public float BuildingFireEscalationRate { get; set; }
        [SettingsUISection(BuildingSection, BuildingFiresGroup)]
        [SettingsUISetter(typeof(Setting), nameof(ControlBFandFFControls))]
        [SettingsUISlider(min = 0f, max = 200f, step = 1f, unit = Unit.kPercentage)]
-         [SettingsUIHideByCondition(typeof(Setting), nameof(BuildingFireStartProbability), true)]
+       [SettingsUIHideByCondition(typeof(Setting), nameof(BuildingFireToggle), true)]
        public float BuildingFireSpreadProbability { get; set; }
+       
        [SettingsUISection(BuildingSection, BuildingFiresGroup)]
        [SettingsUISetter(typeof(Setting), nameof(ControlBFandFFControls))]
        [SettingsUISlider(min = 0f, max = 200f, step = 1f, unit = Unit.kPercentage)]
-         [SettingsUIHideByCondition(typeof(Setting), nameof(BuildingFireStartProbability), true)]
+       [SettingsUIHideByCondition(typeof(Setting), nameof(BuildingFireToggle), true)]
        public float BuildingFireSpreadRange { get; set; }
        
-       
        [SettingsUISection(BuildingSection, ForestFireGroup)]
-       [SettingsUISetter(typeof(Setting), nameof(ControlBFandFFControls))]
-       [SettingsUISlider(min = 0f, max = 100f, step = 0.001f, unit = Unit.kFloatThreeFractions, scalarMultiplier = 1f)]
-       public float ForestFireStartProbability { get; set; }
+       [SettingsUISetter(typeof(Setting), nameof(ToggleForestFires))]
+         public bool ForestFireToggle { get; set; }
        [SettingsUISection(BuildingSection, ForestFireGroup)]
        [SettingsUISetter(typeof(Setting), nameof(ControlBFandFFControls))]
        [SettingsUISlider(min = 0f, max = 100f, step = 1f, unit = Unit.kInteger)]
-         [SettingsUIHideByCondition(typeof(Setting), nameof(ForestFireStartProbability), true)]
+         [SettingsUIHideByCondition(typeof(Setting), nameof(ForestFireToggle), true)]
        public float ForestFireStartIntensity { get; set; }
        [SettingsUISection(BuildingSection, ForestFireGroup)]
        [SettingsUISetter(typeof(Setting), nameof(ControlBFandFFControls))]
        [SettingsUISlider(min = 0f, max = 100f, step = 1f, unit = Unit.kInteger)]
-            [SettingsUIHideByCondition(typeof(Setting), nameof(ForestFireStartProbability), true)]
+            [SettingsUIHideByCondition(typeof(Setting), nameof(ForestFireToggle), true)]
        public float ForestFireEscalationRate { get; set; }
        [SettingsUISection(BuildingSection, ForestFireGroup)]
        [SettingsUISetter(typeof(Setting), nameof(ControlBFandFFControls))]
        [SettingsUISlider(min = 0f, max = 100f, step = 1f, unit = Unit.kFloatSingleFraction)]
-            [SettingsUIHideByCondition(typeof(Setting), nameof(ForestFireStartProbability), true)]
+            [SettingsUIHideByCondition(typeof(Setting), nameof(ForestFireToggle), true)]
        public float ForestFireSpreadProbability { get; set; }
        [SettingsUISection(BuildingSection, ForestFireGroup)]
        [SettingsUISetter(typeof(Setting), nameof(ControlBFandFFControls))]
        [SettingsUISlider(min = 0f, max = 100f, step = 1f, unit = Unit.kInteger)]
-            [SettingsUIHideByCondition(typeof(Setting), nameof(ForestFireStartProbability), true)]
+            [SettingsUIHideByCondition(typeof(Setting), nameof(ForestFireToggle), true)]
        public float ForestFireSpreadRange { get; set; }
        #endregion
-        
+        [SettingsUISection(OtherSection, RobberyGroup)]
+        [SettingsUISetter(typeof(Setting), nameof(ToggleRobberyOccurrences))]
+        public bool RobberyOccurenceToggle { get; set; }
        [SettingsUISection(OtherSection, RobberyGroup)]
-       [SettingsUISetter(typeof(Setting), nameof(ControlRobberyValues))]
+       [SettingsUISetter(typeof(Setting), nameof(ToggleRobberyOccurrences))]
        [SettingsUISlider(min = 0f, max = 100f, step = 1f, unit = Unit.kInteger)]
+         [SettingsUIHideByCondition(typeof(Setting), nameof(RobberyOccurenceToggle), true)]
 
        public float OccurenceProbabilityMin { get; set; }
         
        [SettingsUISection(OtherSection, RobberyGroup)]
-       [SettingsUISetter(typeof(Setting), nameof(ControlRobberyValues))]
+       [SettingsUISetter(typeof(Setting), nameof(ToggleRobberyOccurrences))]
        [SettingsUISlider(min = 0f, max = 100f, step = 1f, unit = Unit.kInteger)]
+            [SettingsUIHideByCondition(typeof(Setting), nameof(RobberyOccurenceToggle), true)]
        public float OccurenceProbabilityMax { get; set; }
        
        [SettingsUISection(OtherSection, RobberyGroup)]
-       [SettingsUISetter(typeof(Setting), nameof(ControlRobberyValues))]
+       [SettingsUISetter(typeof(Setting), nameof(ToggleRobberyOccurrences))]
        [SettingsUISlider(min = 0f, max = 100f, step = 1f, unit = Unit.kInteger)]
+            [SettingsUIHideByCondition(typeof(Setting), nameof(RobberyOccurenceToggle), true)]
        public float RecurrenceProbabilityMin { get; set; }
         
        [SettingsUISection(OtherSection, RobberyGroup)]
-       [SettingsUISetter(typeof(Setting), nameof(ControlRobberyValues))]
+       [SettingsUISetter(typeof(Setting), nameof(ToggleRobberyOccurrences))]
        [SettingsUISlider(min = 0f, max = 100f, step = 1f, unit = Unit.kInteger)]
+            [SettingsUIHideByCondition(typeof(Setting), nameof(RobberyOccurenceToggle), true)]
        public float RecurrenceProbabilityMax { get; set; }
+       
+       
+       [SettingsUISection(OtherSection, LooseControlAccidentGroup)]
+       [SettingsUISetter(typeof(Setting), nameof(ToggleTAOccurences))]
+       public bool LCAAccidentOccurenceToggle { get; set; }
        
        [SettingsUISection(OtherSection, LooseControlAccidentGroup)]
        [SettingsUISetter(typeof(Setting), nameof(ToggleLCAFireProbability))]
        [SettingsUIHideByCondition(typeof(Setting), nameof(LCAAccidentOccurenceToggle), true)]
        public bool LCAFireStartProbabilityToggle { get; set; }
         
-       [SettingsUISection(OtherSection, LooseControlAccidentGroup)]
-       [SettingsUISetter(typeof(Setting), nameof(ToggleTAOccurences))]
-       public bool LCAAccidentOccurenceToggle { get; set; }
+       
        
        [SettingsUISection(HailStormSection, WPGroup)]
        [SettingsUISetter(typeof(Setting), nameof(ToggleHSOccurences))]
@@ -303,7 +312,9 @@ namespace EventsController.Settings
        [SettingsUISection(SeasonalEventsSection, SeasonalEventsGroup)]
        [SettingsUISetter(typeof(Setting), nameof(ControlBFandFFControls))]
        public bool EnableSummerFireIncrease { get; set; } 
-        
+       [SettingsUISection(SeasonalEventsSection, SeasonalEventsGroup)]
+       [SettingsUISetter(typeof(Setting), nameof(ControlBFandFFControls))]
+       public bool EnableWeatherEffectsOnFires { get; set; }  
        
         [SettingsUIButton]
         [SettingsUISection(ResetSection, ResetGroup)]
@@ -327,7 +338,7 @@ namespace EventsController.Settings
         public override void SetDefaults()
         {
             
-            LightningStrikeOccurenceToggle = false;
+            LightningStrikeOccurenceToggle = true;
             LightningIntervalMin = 60f;
             LightningIntervalMax = 60f;
             DurationMin = 30f;
@@ -340,7 +351,7 @@ namespace EventsController.Settings
             LightningFireSpreadProbability = 100f;
             LightningFireSpreadRange = 100f;
             
-            TornadoOccurenceToggle = false;
+            TornadoOccurenceToggle = true;
             TornadoDamageSeverity = 2000f;
             TornadoDurationMin = 60f;
             TornadoDurationMax = 360f;
@@ -351,27 +362,29 @@ namespace EventsController.Settings
             TornadoTrafficAccidentOccurenceProbability = 10f;
             
             
-            BuildingCollapseOccurenceToggle = false;
-            BuildingFireStartProbability = 100f;
+            BuildingCollapseOccurenceToggle = true;
+            BuildingFireToggle = true;
             BuildingFireStartIntensity = 100f;
             BuildingFireEscalationRate = 100f;
             BuildingFireSpreadProbability = 100f;
             BuildingFireSpreadRange = 100f;
-            ForestFireStartProbability = 0.001f;
+            ForestFireToggle = true;
             ForestFireStartIntensity = 1f;
             ForestFireEscalationRate = 1.666667f;
             ForestFireSpreadProbability = 1.5f;
             ForestFireSpreadRange = 30f;
             EnableSummerFireIncrease = false;
+            EnableWeatherEffectsOnFires = false;
             
+            RobberyOccurenceToggle = true;
             OccurenceProbabilityMin = 1f;
             OccurenceProbabilityMax = 5f;
             RecurrenceProbabilityMin = 1f;
             RecurrenceProbabilityMax = 7f;
-            LCAFireStartProbabilityToggle = false;
-            LCAAccidentOccurenceToggle = false;
+            LCAFireStartProbabilityToggle = true;
+            LCAAccidentOccurenceToggle = true;
             
-            HsOccurenceToggle = false;
+            HsOccurenceToggle = true;
             HSDamageSeverity = 10f;
             HSDurationMin = 15f;
             HSDurationMax = 90f;
@@ -424,19 +437,24 @@ namespace EventsController.Settings
                 otherEventsSystem.ResetLCAAccidentOccurence(prefabID);
             }
         }
-        public void ControlRobberyValues(bool state)
+       public void ToggleRobberyOccurrences(bool state)
         {
             OtherEventsSystem otherEventsSystem = World.DefaultGameObjectInjectionWorld?.GetOrCreateSystemManaged<OtherEventsSystem>();
-            ControlRobberyValue(EventPrefabs.RobberyID, state);
+            ToggleRobberyOccurrence(EventPrefabs.RobberyID, state);
         }
-        public void ControlRobberyValue(PrefabID prefabID, bool state)
+
+        public void ToggleRobberyOccurrence(PrefabID prefabID, bool state)
         {
             OtherEventsSystem otherEventsSystem = World.DefaultGameObjectInjectionWorld?.GetOrCreateSystemManaged<OtherEventsSystem>();
-            if (state)
+            if (!state)
             {
+                otherEventsSystem.RobberyOccurenceToZero(prefabID);
+            }
+            else
+            {
+                otherEventsSystem.ResetRobberyOccurence(prefabID);
                 otherEventsSystem.RobberyController(prefabID);
             }
-            
         }
         public void ToggleBuildingCollapseOccurences(bool state)
         {
@@ -459,10 +477,10 @@ namespace EventsController.Settings
         public void ToggleLightningStrikeOccurences(bool state)
         {
             LightningStrikeEventSystem lightningStrikeEventSystem = World.DefaultGameObjectInjectionWorld?.GetOrCreateSystemManaged<LightningStrikeEventSystem>();
-            ToggleLightingOccurence(EventPrefabs.LightningStrikePrefabID, state);
+            ToggleLightningOccurence(EventPrefabs.LightningStrikePrefabID, state);
         }
         
-        public void ToggleLightingOccurence(PrefabID prefabID, bool state)
+        public void ToggleLightningOccurence(PrefabID prefabID, bool state)
         {
             LightningStrikeEventSystem lightningStrikeEventSystem = World.DefaultGameObjectInjectionWorld?.GetOrCreateSystemManaged<LightningStrikeEventSystem>();
             if (!state)
@@ -506,6 +524,40 @@ namespace EventsController.Settings
                 
             }
         }
+        public void ToggleBuildingFires(bool state)
+        {
+            BuildingAndForestEventsSystem buildingAndForestEventsSystem = World.DefaultGameObjectInjectionWorld?.GetOrCreateSystemManaged<BuildingAndForestEventsSystem>();
+            ToggleBuildingFire(EventPrefabs.BuildingFirePrefabID, state);
+        }
+        public void ToggleBuildingFire(PrefabID prefabID, bool state)
+        {
+            BuildingAndForestEventsSystem buildingAndForestEventsSystem = World.DefaultGameObjectInjectionWorld?.GetOrCreateSystemManaged<BuildingAndForestEventsSystem>();
+            if (!state)
+            {
+                buildingAndForestEventsSystem.TurnOnBuildingFire(prefabID);
+            }
+            else
+            {
+                buildingAndForestEventsSystem.TurnOffBuildingFire(prefabID);
+            }
+        }
+        public void ToggleForestFires(bool state)
+        {
+            BuildingAndForestEventsSystem buildingAndForestEventsSystem = World.DefaultGameObjectInjectionWorld?.GetOrCreateSystemManaged<BuildingAndForestEventsSystem>();
+            ToggleForestFire(EventPrefabs.ForestFirePrefabID, state);
+        }
+        public void ToggleForestFire(PrefabID prefabID, bool state)
+        {
+            BuildingAndForestEventsSystem buildingAndForestEventsSystem = World.DefaultGameObjectInjectionWorld?.GetOrCreateSystemManaged<BuildingAndForestEventsSystem>();
+            if (!state)
+            {
+                buildingAndForestEventsSystem.TurnOnForestFire(prefabID);
+            }
+            else
+            {
+                buildingAndForestEventsSystem.TurnOffForestFire(prefabID);
+            }
+        }
         public void ControlBFandFFControls(bool state)
         {
             BuildingAndForestEventsSystem buildingAndForestEventsSystem = World.DefaultGameObjectInjectionWorld?.GetOrCreateSystemManaged<BuildingAndForestEventsSystem>();
@@ -524,8 +576,8 @@ namespace EventsController.Settings
         }
         public void ToggleHSOccurences(bool state)
         {
-            LightningStrikeEventSystem lightningStrikeEventSystem = World.DefaultGameObjectInjectionWorld?.GetOrCreateSystemManaged<LightningStrikeEventSystem>();
-            ToggleLightingOccurence(EventPrefabs.LightningStrikePrefabID, state);
+           HailStormEventSystem hailStormEventSystem = World.DefaultGameObjectInjectionWorld?.GetOrCreateSystemManaged<HailStormEventSystem>();
+           ToggleHSOccurence(EventPrefabs.HailStormID, state);
         }
         
         public void ToggleHSOccurence(PrefabID prefabID, bool state)

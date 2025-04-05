@@ -36,10 +36,13 @@ namespace EventsController
             World.DefaultGameObjectInjectionWorld?.GetOrCreateSystemManaged<TornadoEventSystem>();
             World.DefaultGameObjectInjectionWorld?.GetOrCreateSystemManaged<BuildingAndForestEventsSystem>();
             World.DefaultGameObjectInjectionWorld?.GetOrCreateSystemManaged<OtherEventsSystem>();
+            World.DefaultGameObjectInjectionWorld?.GetOrCreateSystemManaged<HailStormEventSystem>();
+            
             updateSystem.UpdateAt<LightningStrikeEventSystem>(SystemUpdatePhase.MainLoop);
             updateSystem.UpdateAt<TornadoEventSystem>(SystemUpdatePhase.MainLoop);
             updateSystem.UpdateAt<BuildingAndForestEventsSystem>(SystemUpdatePhase.MainLoop);
             updateSystem.UpdateAt<OtherEventsSystem>(SystemUpdatePhase.MainLoop);
+            updateSystem.UpdateAt<HailStormEventSystem>(SystemUpdatePhase.MainLoop);
         }
 
         public void OnDispose()

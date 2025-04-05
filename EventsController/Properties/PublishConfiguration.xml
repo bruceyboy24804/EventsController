@@ -1,8 +1,8 @@
 ﻿<Publish>
   <!--Id must be set in order to update existed mod. it is not required for publishing mod for the first time-->
-  <ModId Value="" />
+  <ModId Value="105800" />
   <!--Name of the mod to display to players-->
-  <DisplayName Value="EventsController" />
+  <DisplayName Value="Events Controller" />
   <!--Short description of the mod-->
   <ShortDescription Value="Lets the user control event parameters so they can fine tune their events" />
   <!--Long description of the mod. Single line or multi line. Supports minimal markdown subset-->
@@ -17,7 +17,7 @@ EventController gives you comprehensive control over the game's disaster and eve
 * **Forest Fires**: Customize start probability, intensity, spread rate, and range
 * **Hail Storms**: Control occurrence, damage, duration, and resulting traffic accidents
 * **Other Events**: Manage robbery probabilities and traffic accident settings
-* **Seasonal Events**: Enable summer fire increase for more forest fires during summer
+* **Seasonal Events**: Enable summer fire increase for more forest fires during summer or Weather-based fire for more fires during dry weather
     
 ## Credits 
 * Yenyang - for letting take over disaster controller</LongDescription>
@@ -33,17 +33,18 @@ EventController gives you comprehensive control over the game's disaster and eve
   <!--Tag, can be set multiple times-->
   <Tag Value="" />
   <!--Link to the forum post where the mod can be discussed-->
-  <ForumLink Value="Code Mod" />
+  <ForumLink Value="https://forum.paradoxplaza.com/forum/threads/events-controller.1734008/" />
   <!--Version of the mod-->
-  <ModVersion Value="1.0.0" />
+  <ModVersion Value="1.1.1" />
   <!--Recommended version of the base game to use the mod-->
   <GameVersion Value="1.2.*" />
   <!--Dependency for the mod, can be set multiple times-->
   <Dependency Id="" />
   <!--Change log for new version. Single line or multi line. Supports minimal markdown subset-->
-  <ChangeLog>## Version 1.0.0
-- Initial release</ChangeLog>
+  <ChangeLog>## Version 1.1.1
+- All events are now on by default (Toggled on means the events can happen).
+- Added toggles for building fires, forest fires, and robberies.</ChangeLog>
   <!--External link. supported types are discord, github, youtube, twitch, x, paypal, patreon, buymeacoffee, kofi, crowdin, gitlab-->
   <ExternalLink Type="discord" Url="https://discord.gg/C2Z5aMdv" />
-  <ExternalLink Type="github" Url="https://discord.gg/C2Z5aMdv" />
+  <ExternalLink Type="github" Url="https://github.com/bruceyboy24804/EventsController" />
 </Publish>

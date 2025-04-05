@@ -76,6 +76,9 @@ namespace EventsController.Systems
         protected override void OnUpdate()
         { 
             HandleLightningControls(true, EventPrefabs.LightningStrikePrefabID);
+            HandleLightningOccurence(Mod.m_Setting.LightningStrikeOccurenceToggle, EventPrefabs.LightningStrikePrefabID);
+            ControlLightningStrikes(EventPrefabs.LightningStrikePrefabID);
+            ControlLightningStrikeFires(EventPrefabs.LightningStrikePrefabID);
         }
         protected override void OnGameLoadingComplete(Purpose purpose, GameMode mode)
         {
@@ -86,7 +89,7 @@ namespace EventsController.Systems
         }
         private void HandleLightningOccurence(bool toggle, PrefabID prefabID)
         {
-            if (toggle)
+            if (!toggle)
             {
                 LightningStrikeOccurenceToZero(prefabID);
             }

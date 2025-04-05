@@ -66,7 +66,9 @@ namespace EventsController.Systems
         }
         protected override void OnUpdate()
         {
+            
             HandleHSControls(true, EventPrefabs.HailStormID);
+            HandleHSOccurence(Mod.m_Setting.HsOccurenceToggle, EventPrefabs.HailStormID);
         }
         protected override void OnGameLoadingComplete(Purpose purpose, GameMode mode)
         {
@@ -77,7 +79,7 @@ namespace EventsController.Systems
         }
         private void HandleHSOccurence(bool toggle, PrefabID prefabID)
         {
-            if (toggle)
+            if (!toggle)
             {
                 HSOccurenceToZero(prefabID);
             }

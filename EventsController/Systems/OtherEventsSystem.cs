@@ -23,6 +23,33 @@ namespace EventsController.Systems
                 EntityManager.SetComponentData(prefabEntity, crimeData);
             }            
         }
+        public void RobberyOccurenceToZero(PrefabID prefabID)
+        {
+            if (m_PrefabSystem.TryGetPrefab(prefabID, out PrefabBase prefab)
+                && m_PrefabSystem.TryGetEntity(prefab, out Entity prefabEntity)
+                && EntityManager.TryGetComponent(prefabEntity, out Game.Prefabs.CrimeData crimeData))
+            {
+                crimeData.m_OccurenceProbability = new Bounds1(0, 0);
+                crimeData.m_RecurrenceProbability = new Bounds1(0, 0);
+                EntityManager.SetComponentData(prefabEntity, crimeData);
+            }
+        }
+        public void ResetRobberyOccurence(PrefabID prefabID)
+        {
+            if (m_PrefabSystem.TryGetPrefab(prefabID, out PrefabBase prefab) 
+                && prefab.TryGet(out Game.Prefabs.Crime crime)
+                && m_PrefabSystem.TryGetEntity(prefab, out Entity prefabEntity)
+                && EntityManager.TryGetComponent(prefabEntity, out Game.Prefabs.CrimeData crimeData))
+            {
+                
+                
+                crimeData.m_OccurenceProbability = new Bounds1(crime.m_OccurenceProbability.min, crime.m_OccurenceProbability.max);
+                crimeData.m_RecurrenceProbability = new Bounds1(crime.m_RecurrenceProbability.min, crime.m_RecurrenceProbability.max);
+                EntityManager.SetComponentData(prefabEntity, crimeData);
+            }
+        }
+        
+        
         public void LCAFirestartProbabilityToZero(PrefabID prefabID)
         {
             if (m_PrefabSystem.TryGetPrefab(prefabID, out PrefabBase prefab)
@@ -74,27 +101,33 @@ namespace EventsController.Systems
         protected override void OnUpdate()
         {
             HandleRobberyOccurences(true, EventPrefabs.RobberyID);
+            HandleLCAFireStartProbability(Mod.m_Setting.LCAFireStartProbabilityToggle, EventPrefabs.LoseControlAccidentPrefabID);
+            HandleLCAAccidentOccurences(Mod.m_Setting.LCAAccidentOccurenceToggle, EventPrefabs.LoseControlAccidentPrefabID);
         }
         protected override void OnGameLoadingComplete(Purpose purpose, GameMode mode)
         {
             base.OnGameLoadingComplete(purpose, mode);
-            HandleRobberyOccurences(true, EventPrefabs.RobberyID);
+            HandleRobberyOccurences(Mod.m_Setting.RobberyOccurenceToggle, EventPrefabs.RobberyID);
             HandleLCAFireStartProbability(Mod.m_Setting.LCAFireStartProbabilityToggle, EventPrefabs.LoseControlAccidentPrefabID);
             HandleLCAAccidentOccurences(Mod.m_Setting.LCAAccidentOccurenceToggle, EventPrefabs.LoseControlAccidentPrefabID);
             
         }
+        
         private void HandleRobberyOccurences(bool toggle, PrefabID prefabID)
         {
-            if (toggle)
+            if (!toggle)
             {
+                RobberyOccurenceToZero(prefabID);
+            }
+            else
+            {
+                ResetRobberyOccurence(prefabID);
                 RobberyController(prefabID);
             }
-            
         }
-        
         private void HandleLCAFireStartProbability(bool toggle, PrefabID prefabID)
         {
-            if (toggle)
+            if (!toggle)
             {
                 LCAFirestartProbabilityToZero(prefabID);
             }
@@ -105,7 +138,7 @@ namespace EventsController.Systems
         }
         private void HandleLCAAccidentOccurences(bool toggle, PrefabID prefabID)
         {
-            if (toggle)
+            if (!toggle)
             {
                 LCAAccidentOccurenceToZero(prefabID);
             }
