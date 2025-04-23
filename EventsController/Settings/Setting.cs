@@ -37,6 +37,7 @@ namespace EventsController.Settings
         public const string ForestFireGroup = "Forest Fires";
         public const string HailStormGroup = "Hail Storms";
         public const string RobberyGroup = "Robberies";
+        public const string CriminalVisuals = "Criminal Visuals";
         public const string LooseControlAccidentGroup = "Lose Control Accidents";
         public const string ResetGroup = "Resetting";
         public const string SeasonalEventsGroup = "Seasonal Events";
@@ -252,6 +253,8 @@ namespace EventsController.Settings
             [SettingsUIHideByCondition(typeof(Setting), nameof(RobberyOccurenceToggle), true)]
        public float RecurrenceProbabilityMax { get; set; }
        
+       
+        
        
        [SettingsUISection(OtherSection, LooseControlAccidentGroup)]
        [SettingsUISetter(typeof(Setting), nameof(ToggleTAOccurences))]
@@ -610,3 +613,4 @@ namespace EventsController.Settings
 
     
 }
+

@@ -35,15 +35,14 @@ EventController gives you comprehensive control over the game's disaster and eve
   <!--Link to the forum post where the mod can be discussed-->
   <ForumLink Value="https://forum.paradoxplaza.com/forum/threads/events-controller.1734008/" />
   <!--Version of the mod-->
-  <ModVersion Value="1.1.1" />
+  <ModVersion Value="1.1.2" />
   <!--Recommended version of the base game to use the mod-->
   <GameVersion Value="1.2.*" />
   <!--Dependency for the mod, can be set multiple times-->
   <Dependency Id="" />
   <!--Change log for new version. Single line or multi line. Supports minimal markdown subset-->
-  <ChangeLog>## Version 1.1.1
-- All events are now on by default (Toggled on means the events can happen).
-- Added toggles for building fires, forest fires, and robberies.</ChangeLog>
+  <ChangeLog>## Version 1.1.2
+- Fixed a bug that was causing building fires and forest fires to be always on even when toggled off</ChangeLog>
   <!--External link. supported types are discord, github, youtube, twitch, x, paypal, patreon, buymeacoffee, kofi, crowdin, gitlab-->
   <ExternalLink Type="discord" Url="https://discord.gg/C2Z5aMdv" />
   <ExternalLink Type="github" Url="https://github.com/bruceyboy24804/EventsController" />

@@ -229,7 +229,7 @@ namespace EventsController.Systems
                 && m_PrefabSystem.TryGetEntity(prefab, out Entity prefabEntity)
                 && EntityManager.TryGetComponent(prefabEntity, out Game.Prefabs.FireData fireData))
             {
-                float fireStartProbability = fire.m_StartProbability;
+                //float fireStartProbability = fire.m_StartProbability;
                 float fireStartIntensity = fire.m_StartIntensity;
                 float fireEscalationRate = fire.m_EscalationRate;
                 float fireSpreadProbability = fire.m_SpreadProbability;
@@ -243,7 +243,7 @@ namespace EventsController.Systems
                 if (isLightningStrike)
                 {
                     // Lightning strikes can still happen even in wet conditions, but with reduced intensity/spread
-                    fireData.m_StartProbability = fireStartProbability * weatherMultiplier;
+                    //fireData.m_StartProbability = fireStartProbability * weatherMultiplier;
                     fireData.m_StartIntensity = Mod.m_Setting.ForestFireStartIntensity * math.lerp(0.5f, 1.0f, m_CurrentDrynessIndex);
                     fireData.m_EscalationRate = Mod.m_Setting.ForestFireEscalationRate * math.lerp(0.3f, 1.0f, m_CurrentDrynessIndex);
                     fireData.m_SpreadProbability = Mod.m_Setting.ForestFireSpreadProbability * weatherMultiplier * 0.8f;
@@ -252,7 +252,7 @@ namespace EventsController.Systems
                 else 
                 {
                     // Normal forest fires heavily dependent on weather conditions
-                    fireData.m_StartProbability = fireStartProbability * weatherMultiplier;
+                    //fireData.m_StartProbability = fireStartProbability * weatherMultiplier;
                     fireData.m_StartIntensity = Mod.m_Setting.ForestFireStartIntensity * math.lerp(0.7f, 1.2f, m_CurrentDrynessIndex);
                     fireData.m_EscalationRate = Mod.m_Setting.ForestFireEscalationRate * math.lerp(0.5f, 1.5f, m_CurrentDrynessIndex);
                     fireData.m_SpreadProbability = Mod.m_Setting.ForestFireSpreadProbability * weatherMultiplier;
@@ -315,6 +315,8 @@ namespace EventsController.Systems
             HandleBFandFFControls(true, EventPrefabs.BuildingFirePrefabID);
             HandleBFandFFControls(true, EventPrefabs.ForestFirePrefabID);
             HandleBuildingCollapseOccurence(Mod.m_Setting.BuildingCollapseOccurenceToggle, EventPrefabs.BuildingCollapseID);
+            HandleBuildingFireOccurence(Mod.m_Setting.BuildingFireToggle, EventPrefabs.BuildingFirePrefabID);
+            HandleForestFireOccurence(Mod.m_Setting.ForestFireToggle, EventPrefabs.ForestFirePrefabID);
 
         }
         
@@ -331,7 +333,7 @@ namespace EventsController.Systems
         //Building Collapse
         private void HandleBuildingCollapseOccurence(bool toggle, PrefabID prefabID)
         {
-            if (toggle)
+            if (!toggle)
             {
                 BuildingCollapseOccurenceToZero(prefabID);
             }
@@ -343,9 +345,10 @@ namespace EventsController.Systems
         //Building Fire
         private void HandleBuildingFireOccurence(bool toggle, PrefabID prefabID)
         {
-            if (!toggle)
+            if (toggle)
             {
                 TurnOnBuildingFire(prefabID);
+                ControlBuildingFires(prefabID);
             }
             else
             {
@@ -355,9 +358,10 @@ namespace EventsController.Systems
         //Forest Fire
         private void HandleForestFireOccurence(bool toggle, PrefabID prefabID)
         {
-            if (!toggle)
+            if (toggle)
             {
                 TurnOnForestFire(prefabID);
+                ControlForestFires(prefabID);
             }
             else
             {
